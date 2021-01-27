@@ -1,18 +1,21 @@
 object WallService {
-    private var posts = mutableMapOf<Any, Post>()
+    private var posts = emptyArray<Post>()
 
-    fun add(post: Post): Post? {
-        posts[post.id] = post
-        return posts[post.id]
+    fun add(post: Post): Post {
+        posts += post.copy(id = post.id + 1)
+        return posts.last()
 
     }
 
     fun update(post: Post): Boolean {
-        if (posts.containsKey(post.id)) {
-            posts.replace(post.id, post.copy(id = post.id, date = post.date))
-            return true
+        for ((index, element) in posts.withIndex()) {
+            if (element.id == post.id) {
+                posts[index] = post.copy(id = post.id, date = post.date)
+                return true
+            }
         }
         return false
     }
-
 }
+
+

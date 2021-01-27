@@ -8,9 +8,9 @@ class WallServiceTest {
     @Test
     fun add_oneTest() {
         val post = Post(id = 456, date = LocalTime.now())
-        val expected = 456
+        val expected = 457
 
-        val result = WallService.add(post)?.id
+        val result = WallService.add(post).id
 
         assertEquals(expected, result)
     }
@@ -18,7 +18,7 @@ class WallServiceTest {
     @Test
     fun update_true() {
         val post = Post(id = 456, date = LocalTime.now())
-        val post2 = Post(id = 456, date = LocalTime.now(), ownerId = 564564)
+        val post2 = Post(id = 457, date = LocalTime.now(), ownerId = 564564)
         WallService.add(post)
 
         val result = WallService.update(post2)
@@ -30,7 +30,7 @@ class WallServiceTest {
     @Test
     fun update_false() {
         val post = Post(id = 456, date = LocalTime.now())
-        val post2 = Post(id = 457, date = LocalTime.now(), ownerId = 564564)
+        val post2 = Post(id = 35, date = LocalTime.now(), ownerId = 564564)
         WallService.add(post)
 
         val result = WallService.update(post2)
