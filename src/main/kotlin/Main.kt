@@ -1,6 +1,9 @@
 import java.time.LocalTime
 
 fun main() {
+    val attachment = VideoAttachment("video")
+    WallService.addArrayAttach(attachment)
+
     val post1 = Post(id = 4554, date = LocalTime.now())
     val post2 = Post(id = 4554, date = LocalTime.now(), ownerId = 564564)
 

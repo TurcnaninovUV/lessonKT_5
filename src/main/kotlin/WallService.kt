@@ -1,9 +1,16 @@
 object WallService {
+
+    private var arrayAttach = emptyArray<Attachment>()
+
+    fun addArrayAttach(attach: Attachment) {
+        arrayAttach += attach
+    }
+
     private var posts = emptyArray<Post>()
 
     fun add(post: Post): Post {
-        posts += if (posts.isEmpty()) post.copy(id = 1, date = post.date)
-        else post.copy(id = posts.last().id!! + 1, date = post.date)
+        val newId = if (posts.isEmpty()) 1 else posts.last().id!! + 1
+        posts += post.copy(id = newId, date = post.date, attachment = arrayAttach)
         return posts.last()
 
     }
