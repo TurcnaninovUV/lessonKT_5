@@ -1,12 +1,28 @@
+import java.lang.RuntimeException
+
 object WallService {
 
     private var arrayAttach = emptyArray<Attachment>()
+    private var posts = emptyArray<Post>()
+    private var comments = emptyArray<Comment>()
+
+    fun createComment(comment: Comment) {
+      for (element in posts) {
+            if (comment.fromId == element.id) {
+                comments += comment
+            } else {
+                throw PostNotFoundException("нет поста с ID ${element.id}")
+            }
+        }
+    }
+
+    class PostNotFoundException(massage: String) : RuntimeException(massage) {
+    }
+
 
     fun addArrayAttach(attach: Attachment) {
         arrayAttach += attach
     }
-
-    private var posts = emptyArray<Post>()
 
     fun add(post: Post): Post {
         val newId = if (posts.isEmpty()) 1 else posts.last().id!! + 1
