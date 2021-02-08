@@ -7,14 +7,17 @@ object WallService {
     private var comments = emptyArray<Comment>()
 
     fun createComment(comment: Comment) {
-      for (element in posts) {
-            if (comment.fromId == element.id) {
+        var flag = false
+        posts.forEach { element ->
+            if (element.id == comment.fromId) {
                 comments += comment
-            } else {
-                throw PostNotFoundException("нет поста с ID ${element.id}")
+                flag = true
             }
         }
+        if (!flag) throw PostNotFoundException("нет поста с данным ID")
+
     }
+
 
     class PostNotFoundException(massage: String) : RuntimeException(massage) {
     }

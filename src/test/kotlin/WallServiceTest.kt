@@ -9,7 +9,7 @@ class WallServiceTest {
     @Test
     fun add_testIf() {
         val post = Post(id = 456, date = LocalTime.now())
-        val expected = 6
+        val expected = 7
 
         val result = WallService.add(post).id
 
@@ -20,7 +20,7 @@ class WallServiceTest {
     fun add_testElse() {
         val post = Post(id = 455, date = LocalTime.now())
         val post2 = Post(id = 457, date = LocalTime.now(), ownerId = 564564)
-        val expected = 5
+        val expected = 6
         WallService.add(post2)
 
         val result = WallService.add(post).id
@@ -51,6 +51,18 @@ class WallServiceTest {
         assertFalse(result)
 
     }
+
+    @Test
+    fun createComment_add() {
+        val post = Post(id = 456, date = LocalTime.now())
+        val comment = Comment(fromId = 2, text = "Hello")
+        val expected = WallService.add(post).id
+        WallService.createComment(comment)
+        val result = comment.fromId
+        assertEquals(expected, result)
+
+    }
+
 
     @Test(expected = WallService.PostNotFoundException::class)
     fun shouldThrow_createComment() {
